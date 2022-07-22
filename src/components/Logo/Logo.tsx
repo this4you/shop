@@ -1,5 +1,5 @@
 import './Logo.scss';
-import logo from 'logo.svg';
+import logo from 'icons/logo.svg';
 
 const Logo = () => {
     return (

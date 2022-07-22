@@ -15,7 +15,9 @@
         justify-content: center;
     }
     &_actions {
-        background-color: rgb(181, 141, 230);
+        >div {
+            margin-left: 30px;
+        }
         justify-content: flex-end;
     }
 }

@@ -1,5 +1,4 @@
-import Categories from 'components/Categories/Categories';
-import Logo from 'components/Logo/Logo';
+import { Categories, Logo, CartIcon, CurrencySelector } from 'components';
 import './Header.scss';
 
 const categories = [
@@ -15,9 +14,12 @@ const Header = () => {
                 <Categories categories={categories} currentCategoryId={"1"} />
             </div>
             <div className="header_icon">
-                <Logo/>
+                <Logo />
             </div>
-            <div className="header_actions">setting</div>
+            <div className="header_actions">
+                <CurrencySelector />
+                <CartIcon />
+            </div>
         </div>
     );
 }
