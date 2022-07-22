@@ -1,0 +1,22 @@
+.header {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    >div {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+    &_icon {
+        background-color: rgb(141, 230, 157);
+        flex: 1;
+        justify-content: center;
+    }
+    &_setting {
+        background-color: rgb(181, 141, 230);
+        justify-content: flex-end;
+    }
+}
