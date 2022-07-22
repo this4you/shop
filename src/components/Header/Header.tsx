@@ -1,4 +1,5 @@
 import Categories from 'components/Categories/Categories';
+import Logo from 'components/Logo/Logo';
 import './Header.scss';
 
 const categories = [
@@ -13,8 +14,10 @@ const Header = () => {
             <div className="header_categories">
                 <Categories categories={categories} currentCategoryId={"1"} />
             </div>
-            <div className="header_icon">icon</div>
-            <div className="header_setting">setting</div>
+            <div className="header_icon">
+                <Logo/>
+            </div>
+            <div className="header_actions">setting</div>
         </div>
     );
 }

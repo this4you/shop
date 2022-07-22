@@ -23,9 +23,6 @@ const Categories = ({ categories, currentCategoryId }: Props) => {
                     {c.name}
                 </span>)
             }
-            {/* <span className="categories_item categories_item-active">Woman</span>
-            <span className="categories_item">Men</span>
-            <span className="categories_item">Kids</span> */}
         </nav>
     );
 }
