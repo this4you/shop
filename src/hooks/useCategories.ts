@@ -12,7 +12,7 @@ const useCategories = () => {
     let location = useLocation();
 
     useEffect(() => {
-        CategoryApi.getAllCategories()
+        CategoryApi.getAll()
             .then(response => {
                 setCategories(response.categories as CategoryType[]);
             })

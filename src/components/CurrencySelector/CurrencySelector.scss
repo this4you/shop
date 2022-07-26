@@ -12,6 +12,11 @@
         align-items: center;
     }
 
+    &_value {
+        font-weight: 500;
+        font-size: 18px;
+    }
+
     &_menu {
         position: absolute;
         display: none;
