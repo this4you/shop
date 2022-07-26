@@ -18,9 +18,9 @@ const CurrencySelector = () => {
                 {value}
             </div>
             <div className="currency-selector_checker">
-                <img src={open ? arrowTop : arrowDown} alt="icon" />
+                <img src={open ? arrowDown : arrowTop} alt="icon" />
             </div>
-            <div className="currency-selector_menu">
+            <div className={`currency-selector_menu ${open ? 'currency-selector_menu-show' : ''}`}>
                 <div className="currency-selector_menu_item">
                     $ USD
                 </div>

@@ -1,4 +1,6 @@
+import { CategoryApi } from 'api';
 import { Categories, Logo, CartIcon, CurrencySelector } from 'components';
+import { useEffect } from 'react';
 import './Header.scss';
 
 const categories = [
@@ -8,10 +10,14 @@ const categories = [
 ];
 
 const Header = () => {
+    useEffect(() => {
+        CategoryApi.getAllCategories();
+    }, [])
+
     return (
         <div className="header">
             <div className="header_categories">
-                <Categories categories={categories} currentCategoryId={"1"} />
+                <Categories />
             </div>
             <div className="header_icon">
                 <Logo />
