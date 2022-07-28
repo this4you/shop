@@ -1,7 +1,7 @@
 import './App.css';
 import { Header } from 'components';
 import { Routes, Route } from 'react-router-dom';
-import { CatalogPage } from 'pages';
+import { CataloguePage } from 'pages';
 
 function App() {
     return (
@@ -10,7 +10,8 @@ function App() {
                 <Header></Header>
                 <Routes>
                     <Route path="/">
-                        <Route path=":categoryId" element={<CatalogPage/>} />
+                        <Route path=":categoryId" element={<CataloguePage/>} />
+                        <Route index element={<CataloguePage/>} />
                     </Route>
                 </Routes>
             </div>

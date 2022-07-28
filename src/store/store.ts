@@ -19,10 +19,6 @@ type ProductType = {
     prices: PriceType[] 
 }
 
-type CartType = {
-
-}
-
 export class ShopStore {
     currenctCurrency: CurrencyType = {} as CurrencyType;
     products: ProductType[] = [];
