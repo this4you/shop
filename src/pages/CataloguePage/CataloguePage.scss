@@ -1,0 +1,30 @@
+.catalogue {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+
+    &_category {
+        padding-top: 80px;
+        padding-bottom: 103px;
+        font-weight: 400;
+
+        h3 {
+            text-transform: capitalize;
+            font-size: 42px;
+        }
+    }
+
+    &_products {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+
+    &_products::after {
+        content: "";
+        width: 386px;
+        height: 444px;
+        // flex: auto;
+    }
+}

@@ -14,7 +14,7 @@ type PriceType = {
 type ProductType = {
     id: string;
     name: string;
-    gallery: [];
+    gallery: string[];
     inStock: boolean;
     prices: PriceType[] 
 }
