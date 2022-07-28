@@ -1,6 +1,7 @@
 import './App.css';
 import { Header } from 'components';
-import { Routes, Route, useParams } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { CatalogPage } from 'pages';
 
 function App() {
     return (
@@ -9,7 +10,7 @@ function App() {
                 <Header></Header>
                 <Routes>
                     <Route path="/">
-                        <Route path=":categoryId" element={<Test/>} />
+                        <Route path=":categoryId" element={<CatalogPage/>} />
                     </Route>
                 </Routes>
             </div>
@@ -17,9 +18,4 @@ function App() {
     );
 }
 
-
-const Test = () => {
-    let { categoryId } = useParams();
-    return <h1>{categoryId}</h1>
-}
 export default App;

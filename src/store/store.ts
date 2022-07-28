@@ -1,12 +1,22 @@
-import { action, makeObservable, observable } from "mobx";
+import ProductApi from "api/product-api";
+import { action, computed, makeObservable, observable } from "mobx";
 
 type CurrencyType = {
     symbol: string;
     label: string
 }
 
-type ProductType = {
+type PriceType = {
+    amount: number,
+    currency: Partial<CurrencyType>
+}
 
+type ProductType = {
+    id: string;
+    name: string;
+    gallery: [];
+    inStock: boolean;
+    prices: PriceType[] 
 }
 
 type CartType = {
@@ -14,23 +24,35 @@ type CartType = {
 }
 
 export class ShopStore {
-    currentCategory: string = "";
     currenctCurrency: CurrencyType = {} as CurrencyType;
     products: ProductType[] = [];
-    cartStore: CartStore
+    cartStore: CartStore;
 
+     _currentCategory: string = "";
+    get currentCategory() {
+        return this._currentCategory;
+    }
+
+    set currentCategory(newCategory) {
+        this._currentCategory = newCategory;
+        this.loadProducts();
+    }
     constructor(cartStore: CartStore) {
         makeObservable(this, {
             loadProducts: action,
             currenctCurrency: observable,
-            currentCategory: observable,
+            currentCategory: computed,
+            _currentCategory: observable,
             products: observable
         })
         this.cartStore = cartStore;
     }
 
-    loadProducts() {
 
+
+    async loadProducts() {
+        const response = await ProductApi.getAll(this.currentCategory);
+        this.products = response.category.products as any;
     }
 }
 
