@@ -1,6 +1,7 @@
 import { CategoryApi } from "api";
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useShopStore } from "store/ShopContex";
 
 type CategoryType = {
     name: string
@@ -8,35 +9,25 @@ type CategoryType = {
 
 const useCategories = () => {
     const [categories, setCategories] = useState<CategoryType[]>([]);
-    const [categoryId, setCategoryId] = useState("");
+    const store = useShopStore();
     let location = useLocation();
 
     useEffect(() => {
         CategoryApi.getAll()
             .then(response => {
                 setCategories(response.categories as CategoryType[]);
+                store.currentCategory = location.pathname.slice(1) || response.categories[0].name;
             })
     }, []);
 
 
     useEffect(() => {
-        setCategoryId(location.pathname.slice(1));
+        store.currentCategory = location.pathname.slice(1);
     }, [location]);
-
-
-    const getCurrentCategory = () => {
-        if (categoryId) {
-            return categoryId;
-        } else if (categories.length > 0) {
-            return categories[0].name;
-        } else {
-            return "";
-        }
-    }
 
     return {
         categories,
-        currentCategory: getCurrentCategory()
+        currentCategory: store.currentCategory
     }
 }
 

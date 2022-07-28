@@ -1,4 +1,5 @@
 import useCategories from 'hooks/useCategories';
+import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 import './Categories.scss';
 
@@ -22,4 +23,4 @@ const Categories = () => {
     );
 }
 
-export default Categories;
+export default observer(Categories);
