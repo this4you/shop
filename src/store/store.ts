@@ -1,5 +1,4 @@
 import ProductApi from "api/product-api";
-import { throws } from "assert";
 import { action, computed, makeObservable, observable } from "mobx";
 
 const CURRENCY_KEY = "CURRENT_CURRENCY";
@@ -25,15 +24,15 @@ type ProductType = {
 
 export class ShopStore {
     currentCurrency: CurrencyType;
-    products: ProductType[] = [];
+    _products: ProductType[] = [];
     cartStore: CartStore;
 
      _currentCategory: string = "";
     get currentCategory() {
         return this._currentCategory;
     }
-    get catalogueProduct() {
-        return this.products.map(p => {
+    get catalogueProducts() {
+        return this._products.map(p => {
             const price = p.prices.find(p => p.currency.symbol === this.currentCurrency?.symbol);
             return {id: p.id, photo: p.gallery[0], name: p.name, inStock: p.inStock, price: `${price?.currency.symbol} ${price?.amount}`}
         });
@@ -48,8 +47,8 @@ export class ShopStore {
             currentCurrency: observable,
             currentCategory: computed,
             _currentCategory: observable,
-            products: observable,
-            catalogueProduct: computed
+            _products: observable,
+            catalogueProducts: computed
         })
         this.cartStore = cartStore;
         this.currentCurrency = DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE);
@@ -59,7 +58,7 @@ export class ShopStore {
 
     async loadProducts() {
         const response = await ProductApi.getAll(this.currentCategory);
-        this.products = response.category.products as any;
+        this._products = response.category.products as any;
     }
 }
 
