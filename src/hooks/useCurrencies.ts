@@ -1,7 +1,7 @@
 import { CurrencyApi } from "api";
 import { useEffect, useState } from "react";
+import { useShopStore } from "store/ShopContex";
 const CURRENCY_KEY = "CURRENT_CURRENCY";
-const DEF_CURRENCY_VALUE = localStorage.getItem(CURRENCY_KEY);
 
 export type CurrencyType = {
     label: string,
@@ -10,18 +10,19 @@ export type CurrencyType = {
 
 const useCurrencies = () => {
     const [currencies, setCurrencies] = useState<CurrencyType[]>([]);
-    const [currentCurrency, setCurrentCurrency] = useState<CurrencyType | undefined>(DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE));
+    const store = useShopStore();
+    // const [currentCurrency, setCurrentCurrency] = useState<CurrencyType | undefined>(DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE));
 
     const setCurrencyWithSave = (currency: CurrencyType) => {
         localStorage.setItem(CURRENCY_KEY, JSON.stringify(currency));
-        setCurrentCurrency(currency);
+        store.currentCurrency = currency;
     }
 
     useEffect(() => {
         CurrencyApi.getAll()
             .then(response => {
                 setCurrencies(response.currencies as CurrencyType[]);
-                if (!currentCurrency && response.currencies.length > 0) {
+                if (!store.currentCurrency && response.currencies.length > 0) {
                     setCurrencyWithSave(response.currencies[0]);
                 }
             })
@@ -29,7 +30,7 @@ const useCurrencies = () => {
 
     return {
         currencies,
-        currentCurrency,
+        currentCurrency: store.currentCurrency,
         setCurrentCurrency: setCurrencyWithSave
     }
 }

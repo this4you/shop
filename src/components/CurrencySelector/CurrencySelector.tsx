@@ -3,6 +3,7 @@ import './CurrencySelector.scss';
 import arrowTop from 'icons/arrow-top.svg';
 import arrowDown from 'icons/arrow-down.svg';
 import useCurrencies, { CurrencyType } from 'hooks/useCurrencies';
+import { observer } from 'mobx-react';
 
 const CurrencySelector = () => {
     const [open, setOpen] = useState(false);
@@ -36,4 +37,4 @@ const CurrencySelector = () => {
     );
 }
 
-export default CurrencySelector;
+export default observer(CurrencySelector);

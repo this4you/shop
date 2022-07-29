@@ -12,8 +12,8 @@ const CataloguePage = () => {
             </div>
             <div className="catalogue_products">
                 {
-                    store.products.map((p) =>
-                        <Product key={p.id} name={p.name} photo={p.gallery[0]}></Product>)
+                    store.catalogueProduct.map((p) =>
+                        <Product key={p.id} {...p}></Product>)
                 }
             </div>
         </div>

@@ -2,9 +2,11 @@ import './Product.scss';
 
 type Props = {
     photo: string,
-    name: string
+    name: string,
+    price: string
+    inStock: boolean
 }
-const Product = ({name, photo}: Props) => {
+const Product = ({name, photo, price, inStock}: Props) => {
     return (
         <div className="product">
             <div className="product_img" style={{ backgroundImage: `url(${photo})` }}>
@@ -15,7 +17,9 @@ const Product = ({name, photo}: Props) => {
                 <div className="product_info_name">
                     {name}
                 </div>
-                <div className="product_info_currency"></div>
+                <div className="product_info_price">
+                    {price}
+                </div>
             </div>
         </div>
     )
