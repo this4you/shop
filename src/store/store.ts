@@ -19,42 +19,55 @@ type ProductType = {
     name: string;
     gallery: string[];
     inStock: boolean;
-    prices: PriceType[] 
+    prices: PriceType[]
 }
 
 export class ShopStore {
-    currentCurrency: CurrencyType;
-    _products: ProductType[] = [];
+
     cartStore: CartStore;
 
-     _currentCategory: string = "";
+    constructor(cartStore: CartStore) {
+        makeObservable(this, {
+            catalogueProducts: computed,
+            loadProducts: action,
+            currentCurrency: computed,
+            currentCategory: computed,
+            _currentCategory: observable,
+            _currentCurrency: observable,
+            _products: observable,
+        })
+        this.cartStore = cartStore;
+        this._currentCurrency = DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE);
+    }
+
+    _products: ProductType[] = [];
+    _currentCategory: string = "";
+    _currentCurrency: CurrencyType;
+
+    get currentCurrency() {
+        return this._currentCurrency;
+    }
+
+    set currentCurrency(newValue) {
+        localStorage.setItem(CURRENCY_KEY, JSON.stringify(newValue));
+        this._currentCurrency = newValue;
+    }
+
     get currentCategory() {
         return this._currentCategory;
     }
-    get catalogueProducts() {
-        return this._products.map(p => {
-            const price = p.prices.find(p => p.currency.symbol === this.currentCurrency?.symbol);
-            return {id: p.id, photo: p.gallery[0], name: p.name, inStock: p.inStock, price: `${price?.currency.symbol} ${price?.amount}`}
-        });
-    }
+
     set currentCategory(newCategory) {
         this._currentCategory = newCategory;
         this.loadProducts();
     }
-    constructor(cartStore: CartStore) {
-        makeObservable(this, {
-            loadProducts: action,
-            currentCurrency: observable,
-            currentCategory: computed,
-            _currentCategory: observable,
-            _products: observable,
-            catalogueProducts: computed
-        })
-        this.cartStore = cartStore;
-        this.currentCurrency = DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE);
+
+    get catalogueProducts() {
+        return this._products.map(p => {
+            const price = p.prices.find(p => p.currency.symbol === this.currentCurrency?.symbol);
+            return { id: p.id, photo: p.gallery[0], name: p.name, inStock: p.inStock, price: `${price?.currency.symbol} ${price?.amount}` }
+        });
     }
-
-
 
     async loadProducts() {
         const response = await ProductApi.getAll(this.currentCategory);
@@ -65,4 +78,16 @@ export class ShopStore {
 
 export class CartStore {
 
+    items: [] = [];
+
+    constructor() {
+        makeObservable(this, {
+            items: observable,
+            count: computed
+        })
+    }
+
+    get count() {
+        return this.items.length;
+    }
 }

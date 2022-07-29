@@ -13,7 +13,7 @@ const useCurrencies = () => {
     const store = useShopStore();
     // const [currentCurrency, setCurrentCurrency] = useState<CurrencyType | undefined>(DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE));
 
-    const setCurrencyWithSave = (currency: CurrencyType) => {
+    const setCurrency = (currency: CurrencyType) => {
         localStorage.setItem(CURRENCY_KEY, JSON.stringify(currency));
         store.currentCurrency = currency;
     }
@@ -23,7 +23,7 @@ const useCurrencies = () => {
             .then(response => {
                 setCurrencies(response.currencies as CurrencyType[]);
                 if (!store.currentCurrency && response.currencies.length > 0) {
-                    setCurrencyWithSave(response.currencies[0]);
+                    setCurrency(response.currencies[0]);
                 }
             })
     }, []);
@@ -31,7 +31,7 @@ const useCurrencies = () => {
     return {
         currencies,
         currentCurrency: store.currentCurrency,
-        setCurrentCurrency: setCurrencyWithSave
+        setCurrentCurrency: setCurrency
     }
 }
 
