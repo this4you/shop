@@ -18,6 +18,22 @@ const ProductApi = {
                     )
             );
         return await client.post(query);
+    },
+
+    get: async (id: string) => {
+        const query = new Query('category')
+            .addArgument("id", "String", id)
+            .addFieldList(["id", "name", "description", "inStock"])
+            .addField("gallery", true)
+            .addField(
+                new Field("attributes", true)
+                    .addFieldList(["id", "name", "type"])
+                    .addField(
+                        new Field("items", true)
+                            .addFieldList(["id", "value", "displayValue"])
+                    )
+            )
+        return await client.post(query);
     }
 }
 
