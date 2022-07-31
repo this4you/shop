@@ -70,6 +70,7 @@ export class ShopStore {
     }
 
     async loadProducts() {
+        if (!this.currentCategory) return;
         const response = await ProductApi.getAll(this.currentCategory);
         this._products = response.category.products as any;
     }

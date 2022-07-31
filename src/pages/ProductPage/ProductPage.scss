@@ -1,0 +1,13 @@
+.product-page {
+    display: flex;
+    margin-top: 70px;
+    &_gallery {
+        width: 60%;
+        min-height: 511px;
+    }
+
+    &_info {
+        background-color: rgba(0, 0, 255, 0.522);
+        width: 40%;
+    }
+}

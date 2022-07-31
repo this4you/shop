@@ -21,8 +21,8 @@ const ProductApi = {
     },
 
     get: async (id: string) => {
-        const query = new Query('category')
-            .addArgument("id", "String", id)
+        const query = new Query('product')
+            .addArgument("id", "String!", id)
             .addFieldList(["id", "name", "description", "inStock"])
             .addField("gallery", true)
             .addField(

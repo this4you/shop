@@ -1,11 +1,15 @@
 import { Product } from "components";
 import useProducts from "hooks/useProducts";
 import { observer } from "mobx-react";
-import { useShopStore } from "store/ShopContex";
+import { useNavigate } from "react-router-dom";
 import './CataloguePage.scss';
 
 const CataloguePage = () => {
-    const {products, currentCategory} = useProducts();
+    const { products, currentCategory } = useProducts();
+    const navigate = useNavigate();
+    const openProductPage = (id: string) => {
+        navigate(`/product/${id}`);
+    }
     return (
         <div className="catalogue">
             <div className="catalogue_category">
@@ -14,7 +18,7 @@ const CataloguePage = () => {
             <div className="catalogue_products">
                 {
                     products.map((p) =>
-                        <Product key={p.id} {...p}></Product>)
+                        <Product onClick={() => openProductPage(p.id)} key={p.id} {...p}></Product>)
                 }
             </div>
         </div>

@@ -6,12 +6,14 @@ type Props = {
     name: string,
     price: string
     inStock: boolean
-}
-const Product = ({name, photo, price, inStock}: Props) => {
+} & React.HTMLAttributes<HTMLDivElement>;
+
+const Product = (props: Props) => {
+    const {name, photo, price, inStock, ...rest} = props;
     return (
-        <div className={`${inStock ? 'product': 'product-out-of-stock'}`}>
+        <div {...rest} className={`${inStock ? 'product': 'product-out-of-stock'}`}>
             <div className="product_img" style={{ backgroundImage: `url(${photo})` }}/>
-            <span className='product-out-of-stock_label'>{inStock ? "" : "OUT OF STOCK"}</span>
+            <span className='product-out-of-stock_label'>{!inStock && "OUT OF STOCK"}</span>
             <span className="product_add-to-cart">
                 <img src={cart} alt="add to cart" />
             </span>

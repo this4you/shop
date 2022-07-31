@@ -11,19 +11,26 @@ const useCategories = () => {
     const [categories, setCategories] = useState<CategoryType[]>([]);
     const store = useShopStore();
     let location = useLocation();
+    const setCurrentCategory = (categoryName: string) => {
+        if (categories.find(c => c.name === categoryName)) {
+            store.currentCategory = categoryName;
+        } else {
+            store.currentCategory = categories[0]?.name;
+        }
+    }
 
     useEffect(() => {
         CategoryApi.getAll()
             .then(response => {
                 setCategories(response.categories as CategoryType[]);
-                store.currentCategory = location.pathname.slice(1) || response.categories[0].name;
+                setCurrentCategory(location.pathname.slice(1) || response.categories[0].name);
             })
     }, []);
 
-
     useEffect(() => {
-        store.currentCategory = location.pathname.slice(1);
-    }, [location]);
+        const categoryName = location.pathname.slice(1);
+        setCurrentCategory(categoryName);
+    }, [location, categories]);
 
     return {
         categories,
