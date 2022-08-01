@@ -12,10 +12,22 @@ const ProductPage = () => {
             {product ?
                 <div className="product-page">
                     <div className="product-page_gallery">
-                        <PhotoGallery photos={product.gallery as string[]}/>
+                        <PhotoGallery photos={product.gallery as string[]} />
                     </div>
                     <div className="product-page_info">
-                        {/* {JSON.stringify(product)} */}
+                        <div className="product-page_info-inner">
+                            <div className="product-page_info_name">
+                                {product.name}
+                            </div>
+                            <div className="product-page_info_attributes">
+                            </div>
+                            <div className="product-page_info_price">
+                            </div>
+                            <button className="product-page_info_add-to-cart">
+                                ADD TO CART
+                            </button>
+                            <div className="product-page_info_description" dangerouslySetInnerHTML={{ __html: product.description }}></div>
+                        </div>
                     </div>
                 </div> :
                 <h3>Product not found</h3>
