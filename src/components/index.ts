@@ -7,3 +7,5 @@ export {default as Product} from './Product/Product';
 export {default as PhotoGallery} from './PhotoGallery/PhotoGallery';
 export {default as ProductAttributes} from './ProductAttributes/ProductAttributes';
 export {default as ColorSelector} from './ColorSelector/ColorSelector';
+export {default as TextSelector} from './TextSelector/TextSelector';
+export {default as AttributeSelector} from './AttributeSelector/AttributeSelector';

@@ -1,4 +1,4 @@
-import { ColorSelector } from 'components';
+import { ColorSelector, TextSelector } from 'components';
 import './ProductAttributes.scss';
 
 export type AttributesCollectionType = Array<{
@@ -8,7 +8,7 @@ export type AttributesCollectionType = Array<{
     items: AttributeItemType[]
 }>
 
-type AttributeItemType = {
+export type AttributeItemType = {
     id: any;
     value: any;
     displayValue: any;
@@ -21,9 +21,9 @@ type Props = {
 const SwitchRender = (type: string, items: AttributeItemType[]) => {
     switch (type) {
         case "text":
-            return <h4>TEXT</h4>;
+            return <TextSelector items={items} />;
         case "swatch":
-            return <ColorSelector colors={items}/>;
+            return <ColorSelector items={items}/>;
     }
 }
 
