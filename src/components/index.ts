@@ -5,3 +5,5 @@ export {default as CartIcon} from './CartIcon/CartIcon';
 export {default as CurrencySelector} from './CurrencySelector/CurrencySelector';
 export {default as Product} from './Product/Product';
 export {default as PhotoGallery} from './PhotoGallery/PhotoGallery';
+export {default as ProductAttributes} from './ProductAttributes/ProductAttributes';
+export {default as ColorSelector} from './ColorSelector/ColorSelector';

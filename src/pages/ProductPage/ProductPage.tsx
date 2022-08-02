@@ -1,4 +1,5 @@
-import { PhotoGallery } from "components";
+import { PhotoGallery, ProductAttributes } from "components";
+import { AttributesCollectionType } from "components/ProductAttributes/ProductAttributes";
 import useProductInfo from "hooks/useProductInfo";
 import { observer } from "mobx-react";
 import { useParams } from "react-router-dom";
@@ -6,7 +7,6 @@ import './ProductPage.scss';
 const ProductPage = () => {
     const { productId } = useParams();
     const product = useProductInfo(productId as string);
-    console.log("Product" + product);
     return (
         <>
             {product ?
@@ -20,8 +20,11 @@ const ProductPage = () => {
                                 {product.name}
                             </div>
                             <div className="product-page_info_attributes">
+                                {JSON.stringify(product.attributes)}
+                                <ProductAttributes attributes={product.attributes as AttributesCollectionType} />
                             </div>
                             <div className="product-page_info_price">
+                                Price
                             </div>
                             <button className="product-page_info_add-to-cart">
                                 ADD TO CART
