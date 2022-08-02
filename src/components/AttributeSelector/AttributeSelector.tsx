@@ -4,7 +4,7 @@ import './AttributeSelector.scss';
 
 type AttributeSelectorType = {
     items: AttributeItemType[],
-    onItemChanged?: (color: AttributeItemType) => void,
+    onItemChanged?: (item: AttributeItemType) => void,
     defValue?: AttributeItemType
 }
 

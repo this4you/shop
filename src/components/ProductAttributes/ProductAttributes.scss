@@ -1,6 +1,7 @@
 .product-attributes {
     margin-top: 43px;
     &_item {
+        cursor: pointer;
         span {
             display: inline-block;
             text-transform: uppercase;

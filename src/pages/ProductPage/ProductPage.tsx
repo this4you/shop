@@ -1,5 +1,5 @@
 import { PhotoGallery, ProductAttributes } from "components";
-import { AttributesCollectionType } from "components/ProductAttributes/ProductAttributes";
+import { AttributeItemType, AttributesCollectionType } from "components/ProductAttributes/ProductAttributes";
 import useProductInfo from "hooks/useProductInfo";
 import { observer } from "mobx-react";
 import { useParams } from "react-router-dom";
@@ -7,6 +7,9 @@ import './ProductPage.scss';
 const ProductPage = () => {
     const { productId } = useParams();
     const product = useProductInfo(productId as string);
+    const onAttributeChange = (name: string, value: AttributeItemType) => {
+        console.log(`Name ${name} ${JSON.stringify(value)}`);
+    }
     return (
         <>
             {product ?
@@ -20,7 +23,7 @@ const ProductPage = () => {
                                 {product.name}
                             </div>
                             <div className="product-page_info_attributes">
-                                <ProductAttributes attributes={product.attributes as AttributesCollectionType} />
+                                <ProductAttributes onAttributeChange={onAttributeChange} attributes={product.attributes as AttributesCollectionType} />
                             </div>
                             <div className="product-page_info_price">
                                 <div className="product-page_info_price-title">
