@@ -17,8 +17,10 @@ const CataloguePage = () => {
             </div>
             <div className="catalogue_products">
                 {
-                    products.map((p) =>
-                        <Product onClick={() => openProductPage(p.id)} key={p.id} {...p}></Product>)
+                    products.map((p) => {
+                        const { gallery, price, ...rest } = p;
+                        return (<Product onClick={() => openProductPage(p.id)} key={p.id} photo={gallery[0]} price={price}  {...rest}></Product>)
+                    })
                 }
             </div>
         </div>

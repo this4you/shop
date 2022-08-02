@@ -19,9 +19,20 @@
             font-family: Raleway;
             font-size: 30px;
             font-weight: 600;
-            line-height: 50px;
             letter-spacing: 0em;
             text-align: left;
+        }
+
+        &_price {
+            font-weight: 700;
+            &-title {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+
+            &-value {
+                font-size: 24px;
+            }
         }
 
         &_add-to-cart {

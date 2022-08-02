@@ -24,6 +24,14 @@ const ProductApi = {
         const query = new Query('product')
             .addArgument("id", "String!", id)
             .addFieldList(["id", "name", "description", "inStock"])
+            .addField(
+                new Field("prices", true)
+                    .addField("amount")
+                    .addField(
+                        new Field("currency")
+                            .addField("symbol")
+                    )
+            )
             .addField("gallery", true)
             .addField(
                 new Field("attributes", true)

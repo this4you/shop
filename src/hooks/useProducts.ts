@@ -3,7 +3,7 @@ import { useShopStore } from "store/ShopContex";
 const useProducts = () => {
     const store = useShopStore();
     return {
-        products: store.catalogueProducts,
+        products: store.products,
         currentCategory: store.currentCategory
     };
 }

@@ -23,7 +23,12 @@ const ProductPage = () => {
                                 <ProductAttributes attributes={product.attributes as AttributesCollectionType} />
                             </div>
                             <div className="product-page_info_price">
-                                Price
+                                <div className="product-page_info_price-title">
+                                    Price:
+                                </div>
+                                <div className="product-page_info_price-value">
+                                    {product.price}
+                                </div>
                             </div>
                             <button className="product-page_info_add-to-cart">
                                 ADD TO CART

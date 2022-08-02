@@ -1,18 +1,16 @@
 import ProductApi from "api/product-api";
 import { useEffect, useState } from "react";
+import { useShopStore } from "store/ShopContex";
+import { Product } from "store/store";
 
-type PropType<TObj, TProp extends keyof TObj> = TObj[TProp];
-
-type ProductType = PropType<Awaited<ReturnType<typeof ProductApi.get>>, "product">;
 
 const useProductInfo = (id: string) => {
-    const [product, setProduct] = useState<ProductType>();
-
+    const [product, setProduct] = useState<Product>();
+    const store = useShopStore();
     useEffect(() => {
-        ProductApi.get(id)
-            .then(response => {
-                setProduct(response.product);
-            })
+        store.getProductInfo(id).then(response => {
+            setProduct(response);
+        })
     }, [id])
 
     return product;

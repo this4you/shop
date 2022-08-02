@@ -1,4 +1,5 @@
 import ProductApi from "api/product-api";
+import { AttributesCollectionType } from "components/ProductAttributes/ProductAttributes";
 import { action, computed, makeObservable, observable } from "mobx";
 
 const CURRENCY_KEY = "CURRENT_CURRENCY";
@@ -28,19 +29,18 @@ export class ShopStore {
 
     constructor(cartStore: CartStore) {
         makeObservable(this, {
-            catalogueProducts: computed,
             loadProducts: action,
             currentCurrency: computed,
             currentCategory: computed,
             _currentCategory: observable,
             _currentCurrency: observable,
-            _products: observable,
+            products: observable,
         })
         this.cartStore = cartStore;
         this._currentCurrency = DEF_CURRENCY_VALUE && JSON.parse(DEF_CURRENCY_VALUE);
     }
 
-    _products: ProductType[] = [];
+    products: Product[] = [];
     _currentCategory: string = "";
     _currentCurrency: CurrencyType;
 
@@ -62,21 +62,41 @@ export class ShopStore {
         this.loadProducts();
     }
 
-    get catalogueProducts() {
-        return this._products.map(p => {
-            const price = p.prices.find(p => p.currency.symbol === this.currentCurrency?.symbol);
-            return { id: p.id, photo: p.gallery[0], name: p.name, inStock: p.inStock, price: `${price?.currency.symbol} ${price?.amount}` }
-        });
-    }
-
     async loadProducts() {
         if (!this.currentCategory) return;
         const response = await ProductApi.getAll(this.currentCategory);
-        this._products = response.category.products as any;
+        this.products = response.category.products.map(p => new Product(this, p.id, p.name, p.gallery, p.inStock, p.prices as PriceType[]));
+    }
+
+    async getProductInfo(id: string) {
+        const p = await (await ProductApi.get(id)).product;
+        return new Product(this, p.id, p.name, p.gallery as string[], p.inStock,
+            p.prices as PriceType[], p.description, p.attributes as AttributesCollectionType);
     }
 }
 
+export class Product {
 
+    constructor(
+        private shopStore: ShopStore,
+        public id: string,
+        public name: string,
+        public gallery: string[],
+        public inStock: boolean,
+        private prices: PriceType[],
+        public description: string = "",
+        public attributes?: AttributesCollectionType
+    ) {
+        makeObservable(this, {
+            price: computed
+        })
+    }
+
+    get price() {
+        const price = this.prices.find(p => p.currency.symbol === this.shopStore.currentCurrency?.symbol);
+        return `${price?.currency.symbol} ${price?.amount}`;
+    }
+}
 export class CartStore {
 
     items: [] = [];
