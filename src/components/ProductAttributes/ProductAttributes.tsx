@@ -18,12 +18,12 @@ type Props = {
     attributes: AttributesCollectionType
 };
 
-const SwitchRender = (type: string, items: AttributeItemType[]) => {
+const AttributeFactory = (type: string, items: AttributeItemType[]) => {
     switch (type) {
         case "text":
             return <TextSelector items={items} />;
         case "swatch":
-            return <ColorSelector items={items}/>;
+            return <ColorSelector items={items} />;
     }
 }
 
@@ -36,7 +36,7 @@ const ProductAttributes = ({ attributes }: Props) => {
                         <div key={a.id} className="product-attributes_item">
                             <span>{`${a.name}:`}</span>
                             {
-                                SwitchRender(a.type, a.items)
+                                AttributeFactory(a.type, a.items)
                             }
                         </div>
                     )

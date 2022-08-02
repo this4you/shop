@@ -1,17 +1,16 @@
-.text-selector {
-    display: flex;
-    &_item {
-        box-sizing: border-box;
-        padding: 1px;
-        margin-right: 10px;
-        border: 1px solid #5ECE7B;
-        &-active {
-            border: 2px solid #5ECE7B;
-            padding: 0;
-        }
-        div {
-            width: 30px;
-            height: 30px;
-        }
+.text-selector-item {
+    box-sizing: border-box;
+    height: 45px;
+    width: 63px;
+    border: 1px solid #1D1F22;
+    font-family: Source Sans Pro;
+    font-size: 16px;
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    line-height: 45px;
+    &-active {
+        background-color: #1D1F22;
+        color: white;
     }
 }

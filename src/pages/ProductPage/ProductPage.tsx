@@ -20,7 +20,6 @@ const ProductPage = () => {
                                 {product.name}
                             </div>
                             <div className="product-page_info_attributes">
-                                {JSON.stringify(product.attributes)}
                                 <ProductAttributes attributes={product.attributes as AttributesCollectionType} />
                             </div>
                             <div className="product-page_info_price">

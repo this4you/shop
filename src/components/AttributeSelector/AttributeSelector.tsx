@@ -8,7 +8,9 @@ type AttributeSelectorType = {
     defValue?: AttributeItemType
 }
 
-const AttributeSelector = (Component: React.ComponentType<AttributeItemType>): React.FC<AttributeSelectorType> =>
+export type AttributeItemTypeExtended = AttributeItemType & { selected: boolean };
+
+const AttributeSelector = (Component: React.ComponentType<AttributeItemTypeExtended>): React.FC<AttributeSelectorType> =>
     function Comp({ items, defValue, onItemChanged }: AttributeSelectorType) {
         const [selected, setSelected] = useState(defValue || items[0]);
 
@@ -25,7 +27,7 @@ const AttributeSelector = (Component: React.ComponentType<AttributeItemType>): R
                     items.map((i) => {
                         return (
                             <div key={i.id} className="attribute-selector_item" onClick={() => onSelectHandler(i)}>
-                                <Component {...i} />
+                                <Component {...i} selected={i.value === selected.value} />
                             </div>
                         )
                     })

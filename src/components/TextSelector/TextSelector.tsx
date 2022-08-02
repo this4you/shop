@@ -1,36 +1,13 @@
-import { useState } from 'react';
+import AttributeSelector, { AttributeItemTypeExtended } from 'components/AttributeSelector/AttributeSelector';
 import './TextSelector.scss';
 
-type PropsType = {
-    items: TextItemType[],
-    onItemChanged?: (item: TextItemType) => void,
-    defItem?: TextItemType
-}
-
-type TextItemType = {
-    id: string,
-    value: string
-}
-
-const TextSelector = ({ items, defItem, onItemChanged }: PropsType) => {
-    const [selected, setSelected] = useState(defItem || items[0]);
-    const onSelectColorHandler = (color: TextItemType) => {
-        setSelected(color);
-        if (onItemChanged) {
-            onItemChanged(color);
-        }
-    }
+const TextItem: React.FC<AttributeItemTypeExtended> = ({ value, selected }) => {
     return (
-        <div className="text-selector">
-            {items.map((c) => {
-                return <div key={c.id}
-                    onClick={() => onSelectColorHandler(c)}
-                    className={`text-selector ${selected.id === c.id && 'text-selector_item-active'}`}>
-                    {c.value}
-                </div>
-            })}
+        <div className={`text-selector-item ${selected && 'text-selector-item-active'}`}>
+            {value}
         </div>
-    )
+    );
 }
 
+const TextSelector = AttributeSelector(TextItem);
 export default TextSelector;

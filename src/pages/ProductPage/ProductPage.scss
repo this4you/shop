@@ -25,6 +25,8 @@
         }
 
         &_add-to-cart {
+            margin-top: 20px;
+            margin-bottom: 40px;
             height: 52px;
             width: 100%;
             background: #5ECE7B;
@@ -43,6 +45,9 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 159.96%;
+            text-align: justify;
+            max-height: 150px;
+            overflow-y: hidden;
         }
     }
 }
